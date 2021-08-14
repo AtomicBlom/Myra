@@ -36,7 +36,7 @@ namespace Myra.Graphics2D.UI
 		Both = Vertical | Horizontal
 	}
 
-	public class Widget : BaseObject
+	public class Widget : BaseObject, IDisposable
 	{
 		private enum LayoutState
 		{
@@ -851,6 +851,8 @@ namespace Myra.Graphics2D.UI
 			}
 		}
 
+		public event EventHandler Disposing;
+		
 		public event EventHandler PlacedChanged;
 		public event EventHandler VisibleChanged;
 		public event EventHandler EnabledChanged;
@@ -1625,6 +1627,11 @@ namespace Myra.Graphics2D.UI
 		private void DesktopTouchUp(object sender, EventArgs args)
 		{
 			_startPos = null;
+		}
+
+		public virtual void Dispose()
+		{
+			Disposing?.Invoke(this, EventArgs.Empty);
 		}
 	}
 }

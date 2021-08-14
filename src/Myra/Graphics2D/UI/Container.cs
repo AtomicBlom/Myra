@@ -208,5 +208,14 @@ namespace Myra.Graphics2D.UI
 		}
 
 		public abstract void RemoveChild(Widget widget);
+
+		public override void Dispose()
+		{
+			base.Dispose();
+			for (var i = 0; i < ChildrenCount; i++)
+			{
+				GetChild(i).Dispose();
+			}
+		}
 	}
 }
